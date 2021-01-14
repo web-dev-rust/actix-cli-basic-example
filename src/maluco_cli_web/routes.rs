@@ -12,7 +12,7 @@ pub fn app_routes(config: &mut web::ServiceConfig) {
     
             .route("object/new", web::post().to(create_object))
             .route("object/delete/{id}", web::delete().to(delete_object))
-            .route("object/get", web::post().to(show_object))
+            .route("object/get", web::get().to(show_object))
             .route("object/get/{id}", web::get().to(get_object))
             .route("object/update/{id}", web::put().to(update_object))
 )

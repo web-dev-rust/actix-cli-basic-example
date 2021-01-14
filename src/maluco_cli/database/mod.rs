@@ -1,10 +1,9 @@
-use crate::maluco_cli::model::maluco_cli::{Object, ObjectUpdate};
+use crate::maluco_cli::model::maluco_cli::{Object, ObjectUpdate, ObjectResponse};
 use std::collections::HashMap;
 pub struct Context(HashMap<String, Object>);
 
 impl Context {
-    pub fn new() -> Self {
-        let map: HashMap<String, Object> = HashMap::new();
+    pub fn new(map: HashMap<String, Object>) -> Self {
         Context{0: map}
     }
 
@@ -29,10 +28,14 @@ impl Context {
         }
     }
 
-    pub fn all(&mut self) -> Vec<Object> {
-        self.0.iter()
-            .map(|(k,v)| *v)
-            .collect::<Vec<Object>>()
+    pub fn all(&mut self) -> Vec<ObjectResponse> {
+        self.0
+            .iter()
+            .map(|(k, v)| ObjectResponse {
+                object: v.clone(),
+                id: k.to_string(),
+            })
+            .collect::<Vec<ObjectResponse>>()
     }
 
     pub fn update(&mut self, key: String, value: ObjectUpdate) -> bool {
